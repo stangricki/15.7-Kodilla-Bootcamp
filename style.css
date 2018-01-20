@@ -1,0 +1,43 @@
+@import url(http://allfont.net/allfont.css?fonts=ds-digital-bold);
+@import url(http://allfont.net/allfont.css?fonts=open-sans);
+
+
+* {
+	/*outline: 1px red solid;*/
+}
+
+.container {
+	height: 100vh;
+	background: url(https://images.pexels.com/photos/9352/glass-time-watch-business.jpg?w=940&h=650&auto=compress&cs=tinysrgb) center/cover no-repeat;
+}
+
+body {
+	background-color: #040707;
+	font-family: 'DS-Digital Bold', arial;
+	font-size: 72px;
+	color: #5AD9FD;
+	text-align: center;
+	margin: 0;
+}
+
+button {
+	font-family: 'Open Sans', arial;
+	padding: 5px 15px;
+	font-size: 1.2rem;
+	margin-bottom: 30px;
+	border: none;
+	border-radius: 5px;
+	color: #0C4150;
+	text-shadow: 1px 1px 3px #FEFEFE;
+	background-color: #24C0EC;
+
+}
+
+button:hover {
+	box-shadow: 0 0 5px 3px #FFF;
+	transition: 0.4s;
+}
+
+li {
+	list-style: none;
+}
