@@ -3,26 +3,17 @@ class Stopwatch extends React.Component {
     return (
     <div className="container">
       <nav className="controls">
-        <button className="button start" onClick={e => this.start()}><i className="fa fa-play" aria-hidden="true"></i> Start</button>
-        <button className="button stop" onClick={e => this.stop()}><i className="fa fa-pause" aria-hidden="true" ></i> Pause</button>
-        <button className="button reset" onClick={e => this.reset()}><i className="fa fa-stop" aria-hidden="true"></i> Reset</button>
+        <button className="button start" onClick={this.start}><i className="fa fa-play" aria-hidden="true"></i> Start</button>
+        <button className="button stop" onClick={this.stop}><i className="fa fa-pause" aria-hidden="true" ></i> Pause</button>
+        <button className="button reset" onClick={this.reset}><i className="fa fa-stop" aria-hidden="true"></i> Reset</button>
       </nav>
       <div className="stopwatch">
        {this.state.display}
       </div>
-      <button className="button save" 
-      
-      onClick={ 
-        function(e) {
-          this.container.querySelector('.results').innerHTML += `<li>${this.display.textContent}</li>`;
-        } 
-      }
-
-      >
-
-      <i className="fa fa-plus" aria-hidden="true"></i> Save Result</button>
-      <button className="button delete" onClick={e => this.delete()}><i className="fa fa-trash" aria-hidden="true"></i> Delete Results</button>
+      <button className="button save" onClick={this.saveResult}><i className="fa fa-plus" aria-hidden="true"></i> Save Result</button>
+      <button className="button delete" onClick={this.delete}><i className="fa fa-trash" aria-hidden="true"></i> Delete Results</button>
       <ul className="results">
+        {this.state.results.map((result, i) => <li key={i}>{result}</li>)}
       </ul>
     </div>);
   }
@@ -30,10 +21,39 @@ class Stopwatch extends React.Component {
   constructor() {
     super()
     this.running = false;
-    this.reset();
+    //this.reset();
     this.state = {
-      display: ''
+      display: '',
+      results: []
     }
+    this.times = {
+      minutes: 0,
+      seconds: 0,
+      miliseconds: 0
+    }
+    this.start = this.start.bind(this)
+    this.stop = this.stop.bind(this)
+    this.reset = this.reset.bind(this)
+    this.saveResult = this.saveResult.bind(this)
+    this.delete = this.delete.bind(this)
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.watch)
+  }
+
+  componentWillMount() {
+    this.reset()
+  }
+
+  delete() {
+    this.setState({
+      results: []
+    })
+  }
+
+  saveResult() {
+    this.setState(state => ({ results: state.results.concat(state.display) }) )
   }
   
   reset() {
@@ -69,7 +89,6 @@ class Stopwatch extends React.Component {
   }
   
   step() {
-    if (!this.running) return;
     this.calculate();
     this.print();
   }
